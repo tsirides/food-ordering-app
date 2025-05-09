@@ -22,11 +22,17 @@
         <div id="your-order"></div>
         <div id="total"></div>
       </div>
+      <div id="order-sent" class="hidden"></div>
       <div class="modal-container hidden">
         <div class="modal">
           <h3>Enter card details</h3>
           <form class="modal-form">
-            <input type="text" required placeholder="Enter your name" />
+            <input
+              id="client-name"
+              type="text"
+              required
+              placeholder="Enter your name"
+            />
             <input
               type="tel"
               inputmode="numeric"
@@ -42,7 +48,8 @@
               pattern="[0-9\s]{3}"
               placeholder="Enter CVV"
             />
-            <button type="submit">Pay</button>
+            <button class="submit" type="submit">Pay</button>
+            <button class="closeBtn" type="button">&times;</button>
           </form>
         </div>
       </div>

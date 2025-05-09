@@ -5,7 +5,10 @@ const order = document.getElementById("your-order");
 const orderTotal = document.getElementById("order-total");
 const priceTotal = document.getElementById("total");
 const modal = document.querySelector(".modal-container");
-const orderList = [];
+const orderSent = document.getElementById("order-sent");
+const orderThanks = document.getElementById("order-thanks");
+const modalClientName = document.getElementById("client-name");
+let orderList = [];
 
 function getItems() {
   return menuArray.map((item) => {
@@ -80,13 +83,30 @@ function handleRemoveItem(itemId) {
   render();
 }
 
+function sendOrder(clientName) {
+  orderList = [];
+  orderSent.innerHTML = `
+  <div id="order-thanks" class='thanks'>
+    Thanks, ${clientName}! Your order is on its way!
+  </div>
+  `;
+}
+
 document.addEventListener("click", (e) => {
   if (e.target.dataset.btnId) {
     handleAddItem(e.target.dataset.btnId);
   } else if (e.target.dataset.removeBtn) {
     handleRemoveItem(e.target.dataset.removeBtn);
-  } else if (e.target.className === "complete-button") {
+  } else if (
+    e.target.className === "complete-button" ||
+    e.target.className === "closeBtn"
+  ) {
     modal.classList.toggle("hidden");
+  } else if (e.target.className === "submit") {
+    e.preventDefault();
+    sendOrder(modalClientName.value);
+    modal.classList.toggle("hidden");
+    orderSent.classList.toggle("hidden");
   }
   //Check if the orderList length is greater that 0 and toggle the hidden class
   orderTotal.classList.toggle("hidden", orderList.length === 0);
